@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GuardSec — Segurança da Informação</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <style>
+    :root {
+      --cor-principal: #001633;
+      --cor-secundaria: #06BCDF;
+      --cor-terciaria: #DB8225;
+      --texto-claro: #f5f5f5;
+      --texto-escuro: #121212;
+      --bg-card: #0b1e3b;
+      --transition: 0.3s ease;
+    }
+
+    /* Tema Escuro (padrão) */
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--cor-principal);
+      color: var(--texto-claro);
+      transition: background-color var(--transition), color var(--transition);
+    }
+
+    header {
+      background-color: var(--cor-secundaria);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 2px solid var(--cor-terciaria);
+    }
+
+    header h1 {
+      color: var(--cor-principal);
+      font-size: 1.8rem;
+    }
+
+    nav a {
+      color: var(--cor-principal);
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color var(--transition);
+    }
+
+    nav a:hover {
+      color: var(--cor-terciaria);
+    }
+
+    main {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    section {
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
+
+    section:nth-child(2) { animation-delay: 0.2s; }
+    section:nth-child(3) { animation-delay: 0.4s; }
+
+    h2 {
+      color: var(--cor-secundaria);
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      color: var(--cor-terciaria);
+      margin-top: 0;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .card-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border-left: 4px solid var(--cor-secundaria);
+      padding: 20px;
+      border-radius: 12px;
+      transition: transform var(--transition), box-shadow var(--transition);
+      width: 320px;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(6, 188, 223, 0.3);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: var(--cor-secundaria);
+      color: var(--cor-principal);
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Tema Claro */
+    @media (prefers-color-scheme: light) {
+      body {
+        background-color: #ffffff;
+        color: var(--texto-escuro);
+      }
+
+      header {
+        background-color: var(--cor-terciaria);
+        border-bottom: 2px solid var(--cor-secundaria);
+      }
+
+      header h1, nav a {
+        color: #ffffff;
+      }
+
+      nav a:hover {
+        color: var(--cor-principal);
+      }
+
+      main {
+        background-color: #f8f8f8;
+      }
+
+      .card {
+        background-color: #e6e6e6;
+        border-left-color: var(--cor-terciaria);
+        color: var(--texto-escuro);
+      }
+
+      footer {
+        background-color: var(--cor-terciaria);
+        color: #ffffff;
+      }
+    }
+
+    /* From Uiverse.io by gharsh11032000 */
+    .card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 24px;
+      line-height: 1.6;
+      transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+      padding: 36px;
+      border-radius: 22px;
+      color: var(--texto-claro);
+      overflow: hidden;
+      background: var(--cor-secundaria);
+      transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .content::before {
+      position: absolute;
+      content: "";
+      top: -4%;
+      left: 50%;
+      width: 90%;
+      height: 90%;
+      transform: translate(-50%);
+      background: rgba(6, 188, 223, 0.3);
+      z-index: -1;
+      transform-origin: bottom;
+      border-radius: inherit;
+      transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .content::after {
+      position: absolute;
+      content: "";
+      top: -8%;
+      left: 50%;
+      width: 80%;
+      height: 80%;
+      transform: translate(-50%);
+      background: rgba(219, 130, 37, 0.2);
+      z-index: -2;
+      transform-origin: bottom;
+      border-radius: inherit;
+      transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .content svg {
+      width: 48px;
+      height: 48px;
+      stroke: var(--texto-claro);
+    }
+
+    .content .para {
+      z-index: 1;
+      opacity: 1;
+      font-size: 18px;
+      transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .content .link {
+      z-index: 1;
+      color: var(--cor-terciaria);
+      text-decoration: none;
+      font-family: inherit;
+      font-size: 16px;
+      transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .content .link:hover {
+      text-decoration: underline;
+      color: #fff1d0;
+    }
+
+    .card:hover {
+      transform: translate(0px, -16px);
+    }
+
+    .card:hover .content::before {
+      rotate: -8deg;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .card:hover .content::after {
+      rotate: 8deg;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Container para alinhar cards lado a lado */
+    .card-row {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>GuardSec</h1>
+    <nav>
+      <a href="#objetivo">Objetivo</a>
+      <a href="#contexto">Contexto</a>
+      <a href="#recursos">Recursos</a>
+      <a href="#conclusao">Conclusão</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="objetivo">
+      <h2>Objetivo Geral</h2>
+      <p>
+        Em um mundo cada vez mais conectado, garantir a proteção de dados e sistemas contra ameaças digitais modernas tornou-se um dos maiores desafios da atualidade. A cibersegurança deixou de ser uma opção para se tornar um requisito essencial à continuidade dos negócios, à integridade das informações e à preservação da confiança de usuários e clientes. Nesse contexto, é fundamental adotar práticas e tecnologias que promovam ambientes digitais resilientes, capazes de antecipar, detectar e reagir a ataques com rapidez e eficiência. Promover a confiança digital significa investir em prevenção, transparência e responsabilidade. Iniciativas como a LGPD e o GDPR reforçam a importância dessa proteção em escala nacional e internacional. Assim, a construção de um ecossistema digital seguro é não apenas um diferencial competitivo, mas uma exigência do nosso tempo.
+      </p>
+    </section>
+
+    <section id="contexto">
+      <h2>Contexto Atual</h2>
+      <p>
+O cenário atual da segurança da informação exige atenção redobrada. Com o aumento constante dos crimes cibernéticos, torna-se essencial desenvolver soluções tecnológicas mais robustas e eficientes. No Brasil, a Lei Geral de Proteção de Dados (LGPD) surge como marco fundamental na defesa da privacidade dos cidadãos, exigindo das empresas responsabilidade no tratamento e armazenamento de dados. Em nível global, o Regulamento Geral sobre a Proteção de Dados (GDPR), adotado na União Europeia, impõe diretrizes rígidas, ampliando ainda mais os desafios para organizações que atuam em ambientes digitais. A crescente digitalização de serviços, aliada à sofisticação das ameaças, intensifica a urgência de estratégias integradas de cibersegurança.
+      </p>
+    </section>
+
+    <section id="recursos">
+      <h2>Recursos GuardSec</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Firewall Inteligente</h3>
+          <p>Monitora acessos em tempo real, bloqueando intrusões com base em IA comportamental.</p>
+        </div>
+        <div class="card">
+          <h3>Criptografia Avançada</h3>
+          <p>Protege dados sensíveis com algoritmos modernos e práticas de segurança rigorosas.</p>
+        </div>
+        <div class="card">
+          <h3>Monitoramento 24/7</h3>
+          <p>Equipe especializada pronta para identificar e responder a ameaças imediatamente.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="uiverse-cards">
+      <div class="card-row">
+        <div class="card">
+          <div class="content">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4" /></svg>
+            <p class="para">Every calendar object receives the display of one cell</p>
+            <a href="#" class="link">Learn More</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="content">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 018 0v1h2v-1a4 4 0 018 0v1h-1a3 3 0 00-3 3v3H7v-3a3 3 0 00-3-3H3v-1z" /></svg>
+            <p class="para">Every calendar object receives the display of one cell</p>
+            <a href="#" class="link">Learn More</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="content">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a4 4 0 00-8 0v2M5 9h14l1 12H4L5 9z" /></svg>
+            <p class="para">Every calendar object receives the display of one cell</p>
+            <a href="#" class="link">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="conclusao">
+      <h2>Conclusão</h2>
+      <p>
+        A implementação do GuardSec garante segurança robusta, alinhada às normas internacionais e leis nacionais, assegurando tranquilidade e proteção contínua. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi corrupti dolore eligendi similique iure fugiat nobis culpa quo maxime neque. Natus, temporibus? Reprehenderit neque illum asperiores minus temporibus cumque officiis.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>GuardSec © 2025 — Todos os direitos reservados</p>
+  </footer>
+</body>
+</html>
+
